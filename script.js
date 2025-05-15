@@ -6,6 +6,14 @@ const analytics = {
     lastUpdated: new Date().toISOString()
 };
 
+// Make analytics globally accessible
+window.analytics = analytics;
+
+// Make getAnalytics globally accessible
+window.getAnalytics = function() {
+    return analytics;
+};
+
 // DOM Elements
 const productsGrid = document.getElementById('productsGrid');
 const cartItems = document.getElementById('cartItems');
@@ -143,10 +151,6 @@ function sendAnalytics(destinationFn) {
     } else {
         console.warn('sendAnalytics: destinationFn is not a function');
     }
-}
-
-function getAnalytics(){
-    return analytics;
 }
 
 // Update analytics data
