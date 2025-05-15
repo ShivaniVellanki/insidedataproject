@@ -151,6 +151,7 @@ function updateAnalytics() {
     console.log('Current Analytics:', analytics);
     // In a real application, you would send this data to a server
     // For now, we'll just store it in the console
+    KoreChatSDK.chatConfig.botOptions.botInfo.customData = { analytics };
 }
 
 // Event Listeners
