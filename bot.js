@@ -21,15 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionStorage.setItem('pageVisits', 1);
     }
 
+    // Initialize customData in bot configuration
+    KoreChatSDK.chatConfig.botOptions.botInfo = KoreChatSDK.chatConfig.botOptions.botInfo || {};
+    KoreChatSDK.chatConfig.botOptions.botInfo.customData = userActivityData;
+
     // Function to update user activity data
     function updateUserActivityData(newData) {
         Object.assign(userActivityData, newData);
-        // Update the bot's custom data if chat is open
-        if (window.KoreSDK && window.KoreSDK.chatInstance) {
-            window.KoreSDK.chatInstance.updateBotInfo({
-                customData: userActivityData
-            });
-        }
+        // Update the bot's custom data
+        KoreChatSDK.chatConfig.botOptions.botInfo.customData = userActivityData;
     }
 
     // Add event listener for when chat window opens
@@ -61,12 +61,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let idleTime = 0;
     setInterval(() => {
         userActivityData.timeSpent++;
+        // Update customData with latest timeSpent
+        KoreChatSDK.chatConfig.botOptions.botInfo.customData = userActivityData;
     }, 1000);
 
     // Reset idle time on user activity
     document.addEventListener('mousemove', () => {
         idleTime = 0;
         userActivityData.lastActivity = Date.now();
+        // Update customData with latest activity
+        KoreChatSDK.chatConfig.botOptions.botInfo.customData = userActivityData;
     });
 
     // Track idle time
@@ -77,5 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             userActivityData.isActive = true;
         }
+        // Update customData with latest idle state
+        KoreChatSDK.chatConfig.botOptions.botInfo.customData = userActivityData;
     }, 1000);
 });
