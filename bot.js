@@ -10,10 +10,32 @@ document.addEventListener('DOMContentLoaded', function() {
             taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
             chatBot: "Reactive_POC",
             customData: {
-                cart: window.analytics.cart,
-                searchHistory: window.analytics.searchHistory,
-                viewedProducts: window.analytics.viewedProducts,
-                lastUpdated: new Date().toISOString()
+                cart: [
+                    {
+                        "id": 1,
+                        "name": "Premium Notebook",
+                        "price": 12.99,
+                        "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=500",
+                        "quantity": 1
+                    },
+                    {
+                        "id": 3,
+                        "name": "Desk Organizer",
+                        "price": 24.99,
+                        "image": "https://images.unsplash.com/photo-1583485088034-697b5bc36b60?w=500",
+                        "quantity": 1
+                    },
+                    {
+                        "id": 4,
+                        "name": "Sticky Notes",
+                        "price": 4.99,
+                        "image": "https://images.unsplash.com/photo-1583485088034-697b5bc36b60?w=500",
+                        "quantity": 1
+                    }
+                ],
+                searchHistory: [],
+                viewedProducts: [1, 2, 3, 4, 5, 6],
+                lastUpdated: "2025-05-16T18:47:22.845Z"
             }
         }
     };
@@ -23,12 +45,34 @@ document.addEventListener('DOMContentLoaded', function() {
         botOptions: botOptions,
         events: {
             onOpen: function() {
-                // Get fresh analytics data when chat opens
+                // Use the same hard-coded test data when chat opens
                 const currentData = {
-                    cart: window.analytics.cart,
-                    searchHistory: window.analytics.searchHistory,
-                    viewedProducts: window.analytics.viewedProducts,
-                    lastUpdated: new Date().toISOString()
+                    cart: [
+                        {
+                            "id": 1,
+                            "name": "Premium Notebook",
+                            "price": 12.99,
+                            "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=500",
+                            "quantity": 1
+                        },
+                        {
+                            "id": 3,
+                            "name": "Desk Organizer",
+                            "price": 24.99,
+                            "image": "https://images.unsplash.com/photo-1583485088034-697b5bc36b60?w=500",
+                            "quantity": 1
+                        },
+                        {
+                            "id": 4,
+                            "name": "Sticky Notes",
+                            "price": 4.99,
+                            "image": "https://images.unsplash.com/photo-1583485088034-697b5bc36b60?w=500",
+                            "quantity": 1
+                        }
+                    ],
+                    searchHistory: [],
+                    viewedProducts: [1, 2, 3, 4, 5, 6],
+                    lastUpdated: "2025-05-16T18:47:22.845Z"
                 };
 
                 console.log('Chat window opened, setting analytics data:', currentData);
