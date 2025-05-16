@@ -1,5 +1,16 @@
 // Initialize analytics monitoring and chat functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Function to get current analytics data
+    function getCurrentAnalytics() {
+        return {
+            cart: window.analytics.cart,
+            searchHistory: window.analytics.searchHistory,
+            viewedProducts: window.analytics.viewedProducts,
+            userActivity: window.analytics.userActivity, // Get user activity data from analytics
+            lastUpdated: new Date().toISOString()
+        };
+    }
+
     // Configure the bot options
     const botOptions = {
         API_KEY_CONFIG: {
@@ -9,12 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: "Reactive_POC",
             taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
             chatBot: "Reactive_POC",
-            customData: {
-                cart: window.analytics.cart,
-                searchHistory: window.analytics.searchHistory,
-                viewedProducts: window.analytics.viewedProducts,
-                lastUpdated: new Date().toISOString()
-            }
+            customData: getCurrentAnalytics()
         }
     };
 
@@ -24,13 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         events: {
             onOpen: function() {
                 // Get fresh analytics data when chat opens
-                const currentData = {
-                    cart: window.analytics.cart,
-                    searchHistory: window.analytics.searchHistory,
-                    viewedProducts: window.analytics.viewedProducts,
-                    lastUpdated: new Date().toISOString()
-                };
-
+                const currentData = getCurrentAnalytics();
                 console.log('Chat window opened, setting analytics data:', currentData);
 
                 // Send message with latest data
@@ -54,6 +54,23 @@ document.addEventListener('DOMContentLoaded', function() {
     window.KoreSDK = {
         chatInstance: new KoreChatSDK.chatWindow()
     };
+
+    // Listen for analytics updates from script.js
+    window.addEventListener('analyticsUpdated', function(event) {
+        if (window.KoreSDK && window.KoreSDK.chatInstance) {
+            const currentData = getCurrentAnalytics();
+            window.KoreSDK.chatInstance.sendMessage({
+                message: {
+                    body: "update_user_data"
+                },
+                botInfo: {
+                    chatBot: "Reactive_POC",
+                    taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
+                    customData: currentData
+                }
+            });
+        }
+    });
 
     // Show chat with configuration
     window.KoreSDK.chatInstance.show(chatConfig);
