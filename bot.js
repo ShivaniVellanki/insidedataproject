@@ -1,5 +1,13 @@
 // Initialize analytics monitoring and chat functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Get initial analytics data
+    const currentData = {
+        cart: window.analytics.cart,
+        searchHistory: window.analytics.searchHistory,
+        viewedProducts: window.analytics.viewedProducts,
+        lastUpdated: new Date().toISOString()
+    };
+
     // Configure the bot options
     const botOptions = {
         API_KEY_CONFIG: {
@@ -7,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         botInfo: {
             name: "Reactive_POC",
-            taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd"
+            taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
+            chatBot: "Reactive_POC",
+            customData: currentData
         }
     };
 
@@ -16,35 +26,41 @@ document.addEventListener('DOMContentLoaded', function() {
         botOptions: botOptions,
         events: {
             onOpen: function() {
-                // Get fresh analytics data when chat opens
-                const currentData = {
+                console.log('Chat window opened, sending initial message with customData');
+                
+                // Get fresh analytics data
+                const freshData = {
                     cart: window.analytics.cart,
                     searchHistory: window.analytics.searchHistory,
                     viewedProducts: window.analytics.viewedProducts,
                     lastUpdated: new Date().toISOString()
                 };
 
-                console.log('Chat window opened, setting analytics data:', currentData);
-
-                // Update the bot session with fresh data
+                // Send an initial message with customData
                 if (window.KoreSDK && window.KoreSDK.chatInstance) {
-                    // Set customData in the message payload
-                    const messagePayload = {
+                    window.KoreSDK.chatInstance.sendMessage({
                         message: {
-                            body: "__updateBotInfo"
+                            body: "init_conversation"
                         },
                         botInfo: {
-                            customData: currentData
+                            chatBot: "Reactive_POC",
+                            taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
+                            customData: freshData
                         }
+                    });
+                }
+            },
+            onMessage: function(message) {
+                // Update customData on each message if needed
+                if (window.analytics && window.KoreSDK.chatInstance) {
+                    const latestData = {
+                        cart: window.analytics.cart,
+                        searchHistory: window.analytics.searchHistory,
+                        viewedProducts: window.analytics.viewedProducts,
+                        lastUpdated: new Date().toISOString()
                     };
 
-                    // Send message to update bot session
-                    window.KoreSDK.chatInstance.sendMessage(messagePayload);
-
-                    // Also update the bot instance's botInfo
-                    if (window.KoreSDK.chatInstance.botInfo) {
-                        window.KoreSDK.chatInstance.botInfo.customData = currentData;
-                    }
+                    window.KoreSDK.chatInstance.botInfo.customData = latestData;
                 }
             }
         }
