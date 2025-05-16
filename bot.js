@@ -24,25 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Function to update bot customData
-    function updateBotCustomData() {
-        const currentData = getCurrentAnalytics();
-        console.log('Updating bot customData with latest analytics:', currentData);
-
-        if (window.KoreSDK && window.KoreSDK.chatInstance) {
-            window.KoreSDK.chatInstance.sendMessage({
-                message: {
-                    body: "update_user_data"
-                },
-                botInfo: {
-                    chatBot: "Reactive_POC",
-                    taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
-                    customData: currentData
-                }
-            });
-        }
-    }
-
     // Configure the chat window
     const chatConfig = {
         botOptions: botOptions,
@@ -76,18 +57,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Listen for analytics updates
     window.addEventListener('analyticsUpdated', function(event) {
-        updateBotCustomData();
-    });
-
-    // Also set up a polling mechanism as backup
-    setInterval(function() {
         const currentData = getCurrentAnalytics();
-        const lastData = window.KoreSDK.chatInstance?.getBotInfo()?.customData;
+        console.log('Analytics updated, sending new data:', currentData);
         
-        if (lastData && JSON.stringify(currentData) !== JSON.stringify(lastData)) {
-            updateBotCustomData();
+        if (window.KoreSDK && window.KoreSDK.chatInstance) {
+            window.KoreSDK.chatInstance.sendMessage({
+                message: {
+                    body: "update_user_data"
+                },
+                botInfo: {
+                    chatBot: "Reactive_POC",
+                    taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
+                    customData: currentData
+                }
+            });
         }
-    }, 2000); // Check every 2 seconds
+    });
 
     // Show chat with configuration
     window.KoreSDK.chatInstance.show(chatConfig);
