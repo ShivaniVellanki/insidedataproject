@@ -1,12 +1,17 @@
 // Initialize analytics monitoring and chat functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Get initial analytics data
-    const currentData = {
-        cart: window.analytics.cart,
-        searchHistory: window.analytics.searchHistory,
-        viewedProducts: window.analytics.viewedProducts,
-        lastUpdated: new Date().toISOString()
-    };
+    // Function to get fresh analytics data
+    function getFreshAnalytics() {
+        // Get the latest analytics data
+        const data = {
+            cart: window.analytics.cart || [],
+            searchHistory: window.analytics.searchHistory || [],
+            viewedProducts: window.analytics.viewedProducts || [],
+            lastUpdated: new Date().toISOString()
+        };
+        console.log('Getting fresh analytics data:', data);
+        return data;
+    }
 
     // Configure the bot options
     const botOptions = {
@@ -17,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: "Reactive_POC",
             taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
             chatBot: "Reactive_POC",
-            customData: currentData
+            customData: {} // Initialize empty, will be set when chat opens
         }
     };
 
@@ -26,29 +31,25 @@ document.addEventListener('DOMContentLoaded', function() {
         botOptions: botOptions,
         events: {
             onOpen: function() {
-                console.log('Chat window opened, sending initial message with customData');
-                
-                // Get fresh analytics data
-                const freshData = {
-                    cart: window.analytics.cart,
-                    searchHistory: window.analytics.searchHistory,
-                    viewedProducts: window.analytics.viewedProducts,
-                    lastUpdated: new Date().toISOString()
-                };
+                // Wait a short moment to ensure analytics is loaded
+                setTimeout(() => {
+                    const freshData = getFreshAnalytics();
+                    console.log('Chat window opened, sending message with latest analytics:', freshData);
 
-                // Send an initial message with customData
-                if (window.KoreSDK && window.KoreSDK.chatInstance) {
-                    window.KoreSDK.chatInstance.sendMessage({
-                        message: {
-                            body: "init_conversation"
-                        },
-                        botInfo: {
-                            chatBot: "Reactive_POC",
-                            taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
-                            customData: freshData
-                        }
-                    });
-                }
+                    // Send message with latest data
+                    if (window.KoreSDK && window.KoreSDK.chatInstance) {
+                        window.KoreSDK.chatInstance.sendMessage({
+                            message: {
+                                body: "init_conversation"
+                            },
+                            botInfo: {
+                                chatBot: "Reactive_POC",
+                                taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
+                                customData: freshData
+                            }
+                        });
+                    }
+                }, 100); // Small delay to ensure analytics is ready
             },
             onMessage: function(message) {
                 // Update customData on each message if needed
@@ -73,4 +74,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Show chat with configuration
     window.KoreSDK.chatInstance.show(chatConfig);
+
+    // Add a function to manually refresh analytics data
+    window.refreshBotAnalytics = function() {
+        if (window.KoreSDK && window.KoreSDK.chatInstance) {
+            const freshData = getFreshAnalytics();
+            window.KoreSDK.chatInstance.sendMessage({
+                message: {
+                    body: "update_analytics"
+                },
+                botInfo: {
+                    chatBot: "Reactive_POC",
+                    taskBotId: "st-cd7dc0d8-c4e2-58a8-be49-95e0d97dfffd",
+                    customData: freshData
+                }
+            });
+            console.log('Manually refreshed analytics data:', freshData);
+        }
+    };
 });
