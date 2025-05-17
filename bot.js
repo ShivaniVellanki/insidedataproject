@@ -9,3 +9,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
 });
+
