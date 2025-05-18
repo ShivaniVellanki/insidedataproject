@@ -1,0 +1,85 @@
+.
+├── LICENSE
+├── README.md
+├── UI
+│   ├── chatWindow.css
+│   ├── chatWindow.js
+│   ├── custom
+│   │   ├── customTemplate.css
+│   │   └── customTemplate.js
+│   ├── gruntFile.js
+│   ├── index.html
+│   ├── index_minified.html
+│   ├── index_widgets.html
+│   ├── index_widgets_chat.html
+│   ├── kore-118n-config.js
+│   ├── kore-config.js
+│   ├── kore-main.js
+│   ├── kore-widgets-chat-main.js
+│   ├── kore-widgets-config.js
+│   ├── kore-widgets-main.js
+│   ├── kore-widgets.css
+│   ├── kore-widgets.js
+│   ├── libs
+│   │   ├── daterangepicker.css
+│   │   ├── dompurify.js
+│   │   ├── images
+│   │   ├── jquery-clockpicker.css
+│   │   ├── jquery-clockpicker.js
+│   │   ├── jquery-ui.min.css
+│   │   ├── jquery-ui.min.js
+│   │   ├── jquery.daterangepicker.js
+│   │   ├── jquery.js
+│   │   ├── jquery.lazyload.js
+│   │   ├── jquery.tmpl.min.js
+│   │   ├── kore-no-conflict-end.js
+│   │   ├── kore-no-conflict-start.js
+│   │   └── moment.js
+│   └── package.json
+├── UI-JAVASCRIPT
+│   ├── README.md
+│   ├── chatWindow.css
+│   ├── chatWindow.js
+│   ├── custom
+│   │   ├── customTemplate.css
+│   │   └── customTemplate.js
+│   ├── index.html
+│   └── libs
+│       └── moment.js
+├── channels.png
+├── folder-structure.txt
+├── kore-bot-sdk-client.js
+├── libs
+│   ├── KoreGraphAdapter.js
+│   ├── anonymousassertion.js
+│   ├── client_api.js
+│   ├── d3.v4.min.js
+│   ├── emoji.js
+│   ├── emojione.sprites.css
+│   ├── ie11CustomProperties.js
+│   ├── jstz.js
+│   ├── kore-pickers.css
+│   ├── kore-pickers.js
+│   ├── lodash.min.js
+│   ├── perfect-scrollbar.js
+│   ├── prefect-scrollbar.css
+│   ├── purejscarousel.css
+│   ├── purejscarousel.js
+│   ├── recorder.js
+│   ├── recorderWorker.js
+│   └── speech
+│       ├── app.js
+│       └── azure
+├── package.json
+├── plugins
+│   ├── agentdestop
+│   │   ├── agentdesktop.css
+│   │   ├── agentdesktop.js
+│   │   ├── config.js
+│   │   └── libs
+│   ├── aws-sdk-2.1158.0.min.js
+│   └── kore-aws-polly.js
+├── server.js
+└── web-mobile-client-channel.png
+
+14 directories, 69 files
