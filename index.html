@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quill-like Store</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quill-like Store</title>
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- Kore.ai Web SDK CSS -->
+  <link rel="stylesheet" href="sdk/web-kore-sdk-master/UI/chatWindow.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Store</div>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search products...">
-                <button id="searchButton"><i class="fas fa-search"></i></button>
-            </div>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cartCount">0</span>
-            </div>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <div class="logo">Store</div>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <button id="searchButton"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCount">0</span>
+      </div>
+    </nav>
+  </header>
 
-    <main>
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be dynamically inserted here -->
-        </div>
+  <main>
+    <div class="products-grid" id="productsGrid"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+      <h2>Shopping Cart</h2>
+      <div id="cartItems"></div>
+      <div class="cart-total">
+        <h3>Total: $<span id="cartTotal">0.00</span></h3>
+        <button id="checkoutButton">Checkout</button>
+      </div>
+    </div>
+  </main>
 
-        <div class="cart-sidebar" id="cartSidebar">
-            <h2>Shopping Cart</h2>
-            <div id="cartItems">
-                <!-- Cart items will be dynamically inserted here -->
-            </div>
-            <div class="cart-total">
-                <h3>Total: $<span id="cartTotal">0.00</span></h3>
-                <button id="checkoutButton">Checkout</button>
-            </div>
-        </div>
-    </main>
+  <!-- App Scripts -->
+  <script src="products.js"></script>
+  <script src="script.js"></script>
 
-    <script src="products.js"></script>
-    <script src="script.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.13.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script> 
-    <script src= "bot.js" ></script>
-
+  <!-- Kore.ai Web SDK Scripts -->
+  <script src="sdk/web-kore-sdk-master/UI/libs/jquery.js"></script>
+  <script src="sdk/web-kore-sdk-master/UI/kore-bot-sdk-client.js"></script>
+  <script src="sdk/web-kore-sdk-master/UI/kore-config.js"></script>
+  <script src="sdk/web-kore-sdk-master/UI/chatWindow.js"></script>
+  
+  <!-- Bot Initialization -->
+  <script src="bot.js"></script>
 </body>
-</html> 
+</html>

@@ -1,12 +1,21 @@
-// Wait for analytics to be available
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Analytics object before getting:', window.analytics);
-    let insideData = getAnalytics();
-    console.log('Analytics data retrieved:', insideData);
-    
-    KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = '9cb93b446f3744c0b678238a901b8aa18f904e3593184563a7e00e53d305ff8cstcd'; 
-    KoreChatSDK.chatConfig.botOptions.botInfo.customData = insideData;
-    
-    new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+document.addEventListener('DOMContentLoaded', function () {
+    const insideData = getAnalytics();
+
+    // Inject analytics into customData
+    koreSDK.chatConfig.botOptions.botInfo.customData = insideData;
+
+    // Show chat window
+    new KoreChatWindow(koreSDK.chatConfig).show();
 });
+
+function sendAnalyticsToBot() {
+    const updatedAnalytics = getAnalytics();
+
+    const message = {
+        type: "text",
+        val: `__updateAnalytics__:${JSON.stringify(updatedAnalytics)}`
+    };
+
+    koreSDK.chatWindowInstance.sendMessage(message);
+}
 

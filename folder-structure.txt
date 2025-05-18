@@ -1,0 +1,23 @@
+.
+├── README.md
+├── bot.js
+├── folder-structure.txt
+├── index.html
+├── products.js
+├── script.js
+├── sdk
+│   └── web-kore-sdk-master
+│       ├── LICENSE
+│       ├── README.md
+│       ├── UI
+│       ├── UI-JAVASCRIPT
+│       ├── channels.png
+│       ├── kore-bot-sdk-client.js
+│       ├── libs
+│       ├── package.json
+│       ├── plugins
+│       ├── server.js
+│       └── web-mobile-client-channel.png
+└── styles.css
+
+7 directories, 14 files
