@@ -1,12 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
     const insideData = getAnalytics();
-
-    // Inject analytics into customData
     koreSDK.chatConfig.botOptions.botInfo.customData = insideData;
-
-    // Show chat window
     new KoreChatWindow(koreSDK.chatConfig).show();
 });
+
 
 function sendAnalyticsToBot() {
     const updatedAnalytics = getAnalytics();
