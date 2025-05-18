@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   
   <!-- Kore.ai Web SDK CSS -->
-  <link rel="stylesheet" href="sdk/web-kore-sdk-master/UI/chatWindow.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kore-web-sdk@11.13.0/dist/umd/kore-web-sdk.min.css">
 </head>
 <body>
   <header>
@@ -43,20 +43,9 @@
   <script src="products.js" defer></script>
   <script src="script.js" defer></script>
 
-  <!-- Kore.ai Web SDK Scripts -->
-<!-- 1. jQuery -->
-<script src="sdk/web-kore-sdk-master/UI/libs/jquery.js" defer></script>
-
-<!-- 2. Core Kore SDK -->
-<script src="sdk/web-kore-sdk-master/kore-bot-sdk-client.js" defer></script>
-
-<!-- 3. Your config -->
-<script src="sdk/web-kore-sdk-master/UI/kore-config.js" defer></script>
-
-<!-- 4. Chat UI -->
-<script src="sdk/web-kore-sdk-master/UI/chatWindow.js" defer></script>
-
-<!-- 5. Your bot logic -->
+  <!-- Kore.ai Web SDK via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/kore-web-sdk@11.13.0/dist/umd/kore-web-sdk-umd-chat.min.js"></script>
+<!-- bot logic -->
 <script src="bot.js" defer></script>
 
 </body>
