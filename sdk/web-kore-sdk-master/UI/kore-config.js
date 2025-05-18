@@ -8,7 +8,7 @@
     botOptions.koreSpeechAPIUrl = "";//deprecated
     //botOptions.bearer = "bearer xyz-------------------";
     //botOptions.ttsSocketUrl = '';//deprecated
-    botOptions.koreAnonymousFn = koreAnonymousFn;
+    // botOptions.koreAnonymousFn = koreAnonymousFn;
     botOptions.recorderWorkerPath = '../libs/recorderWorker.js';
     botOptions.enableAck={ // set true, to send acknowledgment to server on receiving response from bot 
         delivery:false
