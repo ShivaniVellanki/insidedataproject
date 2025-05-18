@@ -13,7 +13,7 @@ window.addEventListener('load', function () {
             allowGoogleSpeech: false,
             isSendButton: true,
             koreAPIUrl: "https://bots.kore.ai/api/",
-            jwtUrl: "https://mk2r2rmj21.execute-api.us-east-1.amazonaws.com/dev/users/sts"  // optional if using JWT
+            jwtUrl: "https://mk2r2rmj21.execute-api.us-east-1.amazonaws.com/dev/users/sts"
         },
         chatContainer: {
             isPopup: true,
@@ -28,17 +28,19 @@ window.addEventListener('load', function () {
     KoreChatSDK.chatWindowInstance = new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
 });
 
-function sendAnalyticsToBot() {
+function sendAnalyticsToBot(retries = 5, delay = 300) {
     const updatedAnalytics = getAnalytics();
 
-    const message = {
-        type: "text",
-        val: `__updateAnalytics__:${JSON.stringify(updatedAnalytics)}`
-    };
-
     if (KoreChatSDK.chatWindowInstance) {
+        const message = {
+            type: "text",
+            val: `__updateAnalytics__:${JSON.stringify(updatedAnalytics)}`
+        };
         KoreChatSDK.chatWindowInstance.sendMessage(message);
+    } else if (retries > 0) {
+        console.warn("Bot not initialized yet. Retrying...");
+        setTimeout(() => sendAnalyticsToBot(retries - 1, delay), delay);
     } else {
-        console.warn("Bot not initialized yet.");
+        console.error("Bot failed to initialize after retries.");
     }
 }
